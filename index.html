@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Sales Profit Analyzer</title>
+    <link rel="icon" type="image/png" href="https://your-github-username.github.io/repository-name/logo.png">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; text-align: center; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label, input, select { display: block; width: 100%; margin-bottom: 10px; }
+        button { padding: 10px; background: blue; color: white; border: none; cursor: pointer; margin-top: 10px; }
+        .dark-mode { background-color: #333; color: #fff; }
+        img { max-width: 100%; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Sales Profit Analyzer</h1>
+        <label for="asin">Enter ASIN</label>
+        <input type="text" id="asin" placeholder="Amazon ASIN">
+        <button onclick="generateAffiliateLink()">Get Amazon Link</button>
+        <p id="affiliate-link"></p>
+
+        <h2>Estimated Sales</h2>
+        <label for="bsr">Enter BSR (Best Sellers Rank)</label>
+        <input type="number" id="bsr" placeholder="Enter BSR">
+        <button onclick="calculateSales()">Estimate Sales</button>
+        <p id="sales-estimate"></p>
+
+        <h2>Profit & Royalties</h2>
+        <label for="book-price">Book Price ($)</label>
+        <input type="number" id="book-price" placeholder="Enter book price">
+        <button onclick="calculateProfit()">Calculate Profit</button>
+        <p id="profit-result"></p>
+        
+        <h2>Book Cover Preview</h2>
+        <img id="book-cover" src="" alt="Book Cover" style="display:none;">
+
+        <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
+
+    <script>
+        function generateAffiliateLink() {
+            let asin = document.getElementById('asin').value;
+            let affiliateID = 'bookanalyzer-20';  // Replace with your ID
+            if (asin) {
+                document.getElementById('affiliate-link').innerHTML = `Affiliate Link: <a href="https://www.amazon.com/dp/${asin}/?tag=${affiliateID}" target="_blank">View on Amazon</a>`;
+                document.getElementById('book-cover').src = `https://images-na.ssl-images-amazon.com/images/P/${asin}.jpg`;
+                document.getElementById('book-cover').style.display = 'block';
+            } else {
+                alert('Please enter an ASIN');
+            }
+        }
+
+        function calculateSales() {
+            let bsr = document.getElementById('bsr').value;
+            if (bsr > 0) {
+                let estimatedSales = Math.round(100000 / Math.pow(bsr, 0.7));
+                document.getElementById('sales-estimate').innerText = `Estimated Monthly Sales: ${estimatedSales}`;
+            } else {
+                alert('Enter a valid BSR');
+            }
+        }
+
+        function calculateProfit() {
+            let price = document.getElementById('book-price').value;
+            if (price > 0) {
+                let royalty = price * 0.7; // Assuming 70% for Kindle books
+                document.getElementById('profit-result').innerText = `Estimated Royalty: $${royalty.toFixed(2)}`;
+            } else {
+                alert('Enter a valid book price');
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
