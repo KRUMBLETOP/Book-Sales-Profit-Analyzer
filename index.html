@@ -135,7 +135,8 @@
     <section id="embed-code">
         <h2>Embed this Tool on Your Website</h2>
         <textarea rows="5" cols="50" id="embed-code-box">
-<iframe src="https://www.amazon.com/dp/${asin1}?tag=bookanalyzer-20" width="800" height="600"></iframe>
+<iframe id="book-iframe" width="800" height="600"></iframe>
+
 
         </textarea>
         <button onclick="copyEmbedCode()">Copy Embed Code</button>
@@ -159,19 +160,23 @@
     <script>
         // Function to compare prices and show the Amazon affiliate link
         function comparePrices() {
-            var asin1 = document.getElementById("asin1").value;
-            var asin2 = document.getElementById("asin2").value;
+    var asin1 = document.getElementById("asin1").value;
+    var asin2 = document.getElementById("asin2").value;
 
-            // Generate Amazon affiliate URLs
-            var affiliateLink1 = `https://www.amazon.com/dp/${asin1}?tag=bookanalyzer-20`;
-            var affiliateLink2 = `https://www.amazon.com/dp/${asin2}?tag=bookanalyzer-20`;
+    // Generate Amazon affiliate URLs
+    var affiliateLink1 = `https://www.amazon.com/dp/${asin1}?tag=bookanalyzer-20`;
+    var affiliateLink2 = `https://www.amazon.com/dp/${asin2}?tag=bookanalyzer-20`;
 
-            // Display results
-            document.getElementById("price-comparison-results").innerHTML = `
-                <p><a href="${affiliateLink1}" target="_blank">Book 1 (ASIN: ${asin1}) - View on Amazon</a></p>
-                <p><a href="${affiliateLink2}" target="_blank">Book 2 (ASIN: ${asin2}) - View on Amazon</a></p>
-            `;
-        }
+    // Display results
+    document.getElementById("price-comparison-results").innerHTML = `
+        <p><a href="${affiliateLink1}" target="_blank">Book 1 (ASIN: ${asin1}) - View on Amazon</a></p>
+        <p><a href="${affiliateLink2}" target="_blank">Book 2 (ASIN: ${asin2}) - View on Amazon</a></p>
+    `;
+
+    // Dynamically update the iframe to show the first book's Amazon page
+    document.getElementById("book-iframe").src = affiliateLink1;
+}
+
     </script>
 
     <!-- Affiliate Disclaimer -->
