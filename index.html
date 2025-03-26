@@ -3,109 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Sales Profit Analyzer</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; text-align: center; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        label, input, select { display: block; width: 100%; margin-bottom: 10px; }
-        button { padding: 10px; background: blue; color: white; border: none; cursor: pointer; }
-        .dark-mode { background-color: #333; color: #fff; }
-        img { max-width: 100%; height: auto; margin-bottom: 20px; }
-    </style>
+    <title>Amazon Book Sales Profit Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Book Sales Profit Analyzer</h1>
-        
-        <img src="https://raw.githubusercontent.com/KRUMBLETOP/Book-Sales-Profit-Analyzer/main/Book%20Profit%20Calc%20Toolz.png" alt="Book Analyzer Logo">
+    <header>
+        <h1>Amazon Book Sales Profit Analyzer</h1>
+        <p>Analyze your book sales, royalty earnings, and much more. Optimize your book pricing and promotions with ease!</p>
+    </header>
 
-        <label for="book-price">Book Price ($)</label>
-        <input type="number" id="book-price" placeholder="Enter book price">
-        
-        <label for="book-format">Select Format</label>
-        <select id="book-format">
-            <option value="paperback">Paperback</option>
-            <option value="kindle">Kindle</option>
-            <option value="hardcover">Hardcover</option>
+    <!-- Price Comparison Tool -->
+    <section id="price-comparison">
+        <h2>Price Comparison Tool</h2>
+        <label for="asin1">Enter ASIN for Book 1:</label>
+        <input type="text" id="asin1" placeholder="Enter ASIN for Book 1">
+        <label for="asin2">Enter ASIN for Book 2:</label>
+        <input type="text" id="asin2" placeholder="Enter ASIN for Book 2">
+        <button onclick="comparePrices()">Compare Prices</button>
+        <div id="price-comparison-results"></div>
+    </section>
+
+    <!-- Price Optimization Tool -->
+    <section id="price-optimization">
+        <h2>Price Optimization Tool</h2>
+        <label for="book-category">Select Book Category:</label>
+        <select id="book-category">
+            <option value="fiction">Fiction</option>
+            <option value="non-fiction">Non-fiction</option>
+            <option value="self-help">Self-Help</option>
+            <option value="romance">Romance</option>
         </select>
-        
-        <label for="asin">Enter ASIN</label>
-        <input type="text" id="asin" placeholder="Amazon ASIN">
-        <button onclick="generateAffiliateLink()">Get Amazon Link</button>
-        
-        <p id="affiliate-link"></p>
+        <label for="current-price">Current Price:</label>
+        <input type="number" id="current-price" placeholder="Enter current price">
+        <button onclick="optimizePrice()">Optimize Price</button>
+        <div id="price-optimization-results"></div>
+    </section>
 
-        <label for="bsr1">Enter ASIN for Book 1 (BSR Comparison)</label>
-        <input type="text" id="bsr1" placeholder="Amazon ASIN for Book 1">
-        
-        <label for="bsr2">Enter ASIN for Book 2 (BSR Comparison)</label>
-        <input type="text" id="bsr2" placeholder="Amazon ASIN for Book 2">
-        
-        <button onclick="compareBSR()">Compare Best Seller Ranks</button>
-        <p id="bsr-comparison"></p>
+    <!-- Amazon Ads ROI Estimator -->
+    <section id="ads-roi">
+        <h2>Amazon Ads ROI Estimator</h2>
+        <label for="ad-spend">Ad Spend ($):</label>
+        <input type="number" id="ad-spend" placeholder="Enter your ad spend">
+        <label for="ad-sales">Sales Generated ($):</label>
+        <input type="number" id="ad-sales" placeholder="Enter your ad sales">
+        <button onclick="calculateROI()">Calculate ROI</button>
+        <div id="roi-results"></div>
+    </section>
 
-        <label for="book-price-royalty">Enter Book Price for Royalty Estimation ($)</label>
-        <input type="number" id="book-price-royalty" placeholder="Enter book price for royalty estimation">
-        
-        <label for="royalty-country">Select Country for Royalty Calculation</label>
-        <select id="royalty-country">
-            <option value="USA">USA</option>
-            <option value="UK">UK</option>
-            <option value="Canada">Canada</option>
-            <option value="Germany">Germany</option>
-            <option value="France">France</option>
+    <!-- Best Time to Launch Tool -->
+    <section id="launch-time">
+        <h2>Best Time to Launch Tool</h2>
+        <label for="category">Select Book Category:</label>
+        <select id="category">
+            <option value="fiction">Fiction</option>
+            <option value="non-fiction">Non-fiction</option>
+            <option value="self-help">Self-Help</option>
         </select>
-        
-        <label for="royalty-rate">Enter Royalty Rate (%)</label>
-        <input type="number" id="royalty-rate" placeholder="Enter Royalty Rate (e.g. 70)">
-        
-        <button onclick="calculateRoyalty()">Calculate Royalty</button>
-        <p id="royalty-result"></p>
+        <button onclick="suggestLaunchTime()">Get Launch Time</button>
+        <div id="launch-time-results"></div>
+    </section>
 
-        <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-        <p><strong>Affiliate Disclaimer:</strong> This tool contains Amazon affiliate links, which means we may earn a small commission if you purchase through the links provided.</p>
-    </div>
+    <!-- Author Earnings Dashboard -->
+    <section id="earnings-dashboard">
+        <h2>Author Earnings Dashboard</h2>
+        <label for="price">Book Price ($):</label>
+        <input type="number" id="price" placeholder="Enter your book's price">
+        <label for="units-sold">Units Sold:</label>
+        <input type="number" id="units-sold" placeholder="Enter units sold">
+        <button onclick="calculateEarnings()">Calculate Earnings</button>
+        <div id="earnings-results"></div>
+    </section>
 
-    <script>
-        function generateAffiliateLink() {
-            let asin = document.getElementById('asin').value;
-            let affiliateID = 'bookanalyzer-20';  // Replace with your ID
-            if (asin) {
-                document.getElementById('affiliate-link').innerHTML = `Affiliate Link: <a href="https://www.amazon.com/dp/${asin}/?tag=${affiliateID}" target="_blank">View on Amazon</a>`;
-            } else {
-                alert('Please enter an ASIN');
-            }
-        }
+    <!-- Amazon Bestseller Rank (BSR) Tracker -->
+    <section id="bsr-tracker">
+        <h2>Amazon Bestseller Rank (BSR) Tracker</h2>
+        <label for="asin-bsr">Enter ASIN for BSR Tracking:</label>
+        <input type="text" id="asin-bsr" placeholder="Enter ASIN for Book">
+        <button onclick="trackBSR()">Track BSR</button>
+        <div id="bsr-tracker-results"></div>
+    </section>
 
-        function compareBSR() {
-            let bsr1 = document.getElementById('bsr1').value;
-            let bsr2 = document.getElementById('bsr2').value;
-            if (bsr1 && bsr2) {
-                let comparisonResult = bsr1 < bsr2 ? 'Book 1 is performing better!' : 'Book 2 is performing better!';
-                document.getElementById('bsr-comparison').innerHTML = comparisonResult;
-            } else {
-                alert('Please enter ASINs for both books');
-            }
-        }
+    <!-- KDP Royalties Forecast -->
+    <section id="kdp-royalties">
+        <h2>KDP Royalties Forecast</h2>
+        <label for="kdp-price">Book Price ($):</label>
+        <input type="number" id="kdp-price" placeholder="Enter book price">
+        <label for="kdp-royalty-rate">Royalty Rate (%):</label>
+        <input type="number" id="kdp-royalty-rate" placeholder="Enter royalty rate">
+        <button onclick="forecastRoyalties()">Forecast Royalties</button>
+        <div id="royalties-results"></div>
+    </section>
 
-        function calculateRoyalty() {
-            let price = parseFloat(document.getElementById('book-price-royalty').value);
-            let country = document.getElementById('royalty-country').value;
-            let royaltyRate = parseFloat(document.getElementById('royalty-rate').value);
-            let royalty = (price * royaltyRate) / 100;
-            document.getElementById('royalty-result').innerHTML = `Estimated royalty for ${country}: $${royalty.toFixed(2)}`;
-        }
+    <!-- International Sales Forecast -->
+    <section id="international-sales">
+        <h2>International Sales Forecast</h2>
+        <label for="intl-price">Book Price ($):</label>
+        <input type="number" id="intl-price" placeholder="Enter book price">
+        <label for="region">Select Region:</label>
+        <select id="region">
+            <option value="uk">UK</option>
+            <option value="canada">Canada</option>
+            <option value="germany">Germany</option>
+            <option value="france">France</option>
+        </select>
+        <button onclick="forecastIntlSales()">Forecast International Sales</button>
+        <div id="intl-sales-results"></div>
+    </section>
 
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
-    </script>
+    <!-- Bundled Sales Estimate -->
+    <section id="bundled-sales">
+        <h2>Bundled Sales Estimate</h2>
+        <label for="book1-price">Book 1 Price ($):</label>
+        <input type="number" id="book1-price" placeholder="Enter Book 1 price">
+        <label for="book2-price">Book 2 Price ($):</label>
+        <input type="number" id="book2-price" placeholder="Enter Book 2 price">
+        <button onclick="estimateBundleSales()">Estimate Bundle Sales</button>
+        <div id="bundle-sales-results"></div>
+    </section>
 
-    <footer>
-        <p>Embed this tool on your website:</p>
-        <textarea id="embed-code" rows="4" cols="50" readonly>
-<iframe src="https://KRUMBLETOP.github.io/Book-Sales-Profit-Analyzer" width="800" height="600"></iframe>
+    <!-- Book Promotion Finder -->
+    <section id="book-promotion">
+        <h2>Book Promotion Finder</h2>
+        <label for="genre">Select Genre:</label>
+        <select id="genre">
+            <option value="fiction">Fiction</option>
+            <option value="non-fiction">Non-fiction</option>
+            <option value="self-help">Self-Help</option>
+        </select>
+        <button onclick="findPromotions()">Find Promotions</button>
+        <div id="promotion-results"></div>
+    </section>
+
+    <!-- Embed Code Section -->
+    <section id="embed-code">
+        <h2>Embed this Tool on Your Website</h2>
+        <textarea rows="5" cols="50" id="embed-code-box">
+<iframe src="https://your-github-username.github.io/repository-name" width="800" height="600"></iframe>
         </textarea>
+        <button onclick="copyEmbedCode()">Copy Embed Code</button>
+    </section>
+
+    <!-- Affiliate Disclaimer -->
+    <footer>
+        <p>This site uses Amazon Affiliate links. I may earn commissions from qualifying purchases. Thank you for supporting my work!</p>
     </footer>
 </body>
 </html>
