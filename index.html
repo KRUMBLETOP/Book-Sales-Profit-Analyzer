@@ -6,19 +6,15 @@
     <title>Book Sales Profit Analyzer</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; text-align: center; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         label, input, select { display: block; width: 100%; margin-bottom: 10px; }
         button { padding: 10px; background: blue; color: white; border: none; cursor: pointer; }
         .dark-mode { background-color: #333; color: #fff; }
-        #affiliate-note { font-size: 12px; color: gray; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Book Sales Profit Analyzer</h1>
-        
-        <img src="https://raw.githubusercontent.com/KRUMBLETOP/Book-Sales-Profit-Analyzer/main/Book%20Profit%20Calc%20Toolz.png" alt="Book Profit Calculator Tool" width="300">
-        
         <label for="book-price">Book Price ($)</label>
         <input type="number" id="book-price" placeholder="Enter book price">
         
@@ -34,9 +30,13 @@
         <button onclick="generateAffiliateLink()">Get Amazon Link</button>
         
         <p id="affiliate-link"></p>
-        <p id="affiliate-note">This page contains Amazon affiliate links. As an Amazon Associate, we earn from qualifying purchases.</p>
         
         <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+        
+        <h2>Embed This Tool</h2>
+        <p>Copy the code below to add this tool to your website:</p>
+        <textarea id="embed-code" readonly style="width: 100%; height: 50px;"></textarea>
+        <button onclick="copyEmbedCode()">Copy Code</button>
     </div>
 
     <script>
@@ -52,6 +52,13 @@
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
+        }
+
+        function copyEmbedCode() {
+            let embedCode = '<iframe src="https://yourgithubusername.github.io/repository-name/index.html" width="600" height="400"></iframe>';
+            document.getElementById('embed-code').value = embedCode;
+            navigator.clipboard.writeText(embedCode);
+            alert('Embed code copied to clipboard!');
         }
     </script>
 </body>
