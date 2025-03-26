@@ -10,22 +10,15 @@
         label, input, select { display: block; width: 100%; margin-bottom: 10px; }
         button { padding: 10px; background: blue; color: white; border: none; cursor: pointer; }
         .dark-mode { background-color: #333; color: #fff; }
-        .affiliate-disclaimer { font-size: 14px; color: #555; margin-top: 20px; }
-        .embed-section { margin-top: 20px; }
-        .embed-section textarea { width: 100%; height: 50px; }
-        .image-container { text-align: center; margin-bottom: 20px; }
-        img { max-width: 100%; height: auto; }
+        img { max-width: 100%; height: auto; margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Book Sales Profit Analyzer</h1>
         
-        <!-- Display Image -->
-        <div class="image-container">
-            <img src="https://raw.githubusercontent.com/KRUMBLETOP/Book-Sales-Profit-Analyzer/main/Book%20Profit%20Calc%20Toolz.png" alt="Book Profit Calculator">
-        </div>
-        
+        <img src="https://raw.githubusercontent.com/KRUMBLETOP/Book-Sales-Profit-Analyzer/main/Book%20Profit%20Calc%20Toolz.png" alt="Book Analyzer Logo">
+
         <label for="book-price">Book Price ($)</label>
         <input type="number" id="book-price" placeholder="Enter book price">
         
@@ -41,40 +34,42 @@
         <button onclick="generateAffiliateLink()">Get Amazon Link</button>
         
         <p id="affiliate-link"></p>
-        
-        <label for="country">Select Country</label>
-        <select id="country">
-            <option value="US">USA</option>
-            <option value="UK">UK</option>
-            <option value="CA">Canada</option>
-            <option value="DE">Germany</option>
-            <option value="FR">France</option>
-        </select>
 
+        <label for="bsr1">Enter ASIN for Book 1 (BSR Comparison)</label>
+        <input type="text" id="bsr1" placeholder="Amazon ASIN for Book 1">
+        
+        <label for="bsr2">Enter ASIN for Book 2 (BSR Comparison)</label>
+        <input type="text" id="bsr2" placeholder="Amazon ASIN for Book 2">
+        
+        <button onclick="compareBSR()">Compare Best Seller Ranks</button>
+        <p id="bsr-comparison"></p>
+
+        <label for="book-price-royalty">Enter Book Price for Royalty Estimation ($)</label>
+        <input type="number" id="book-price-royalty" placeholder="Enter book price for royalty estimation">
+        
+        <label for="royalty-country">Select Country for Royalty Calculation</label>
+        <select id="royalty-country">
+            <option value="USA">USA</option>
+            <option value="UK">UK</option>
+            <option value="Canada">Canada</option>
+            <option value="Germany">Germany</option>
+            <option value="France">France</option>
+        </select>
+        
         <label for="royalty-rate">Enter Royalty Rate (%)</label>
-        <input type="number" id="royalty-rate" placeholder="Enter royalty rate" value="70">
+        <input type="number" id="royalty-rate" placeholder="Enter Royalty Rate (e.g. 70)">
         
         <button onclick="calculateRoyalty()">Calculate Royalty</button>
-        <p id="royalty-output"></p>
+        <p id="royalty-result"></p>
 
         <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-        
-        <div class="embed-section">
-            <h2>Embed This Tool</h2>
-            <p>Copy the code below to add this tool to your website:</p>
-            <textarea id="embed-code" readonly></textarea>
-            <button onclick="copyEmbedCode()">Copy Code</button>
-        </div>
-        
-        <p class="affiliate-disclaimer">
-            Disclaimer: As an Amazon Associate, I earn from qualifying purchases through the links provided on this tool.
-        </p>
+        <p><strong>Affiliate Disclaimer:</strong> This tool contains Amazon affiliate links, which means we may earn a small commission if you purchase through the links provided.</p>
     </div>
 
     <script>
         function generateAffiliateLink() {
             let asin = document.getElementById('asin').value;
-            let affiliateID = 'bookanalyzer-20';  // Replace with your Amazon affiliate ID
+            let affiliateID = 'bookanalyzer-20';  // Replace with your ID
             if (asin) {
                 document.getElementById('affiliate-link').innerHTML = `Affiliate Link: <a href="https://www.amazon.com/dp/${asin}/?tag=${affiliateID}" target="_blank">View on Amazon</a>`;
             } else {
@@ -82,31 +77,36 @@
             }
         }
 
-        function calculateRoyalty() {
-            let bookPrice = document.getElementById('book-price').value;
-            let royaltyRate = document.getElementById('royalty-rate').value;
-            let country = document.getElementById('country').value;
-            
-            if (!bookPrice || !royaltyRate) {
-                alert('Please enter both book price and royalty rate.');
-                return;
+        function compareBSR() {
+            let bsr1 = document.getElementById('bsr1').value;
+            let bsr2 = document.getElementById('bsr2').value;
+            if (bsr1 && bsr2) {
+                let comparisonResult = bsr1 < bsr2 ? 'Book 1 is performing better!' : 'Book 2 is performing better!';
+                document.getElementById('bsr-comparison').innerHTML = comparisonResult;
+            } else {
+                alert('Please enter ASINs for both books');
             }
+        }
 
-            let royaltyAmount = (bookPrice * royaltyRate) / 100;
-            let outputText = `Royalty for ${country}: $${royaltyAmount.toFixed(2)}`;
-            document.getElementById('royalty-output').innerText = outputText;
+        function calculateRoyalty() {
+            let price = parseFloat(document.getElementById('book-price-royalty').value);
+            let country = document.getElementById('royalty-country').value;
+            let royaltyRate = parseFloat(document.getElementById('royalty-rate').value);
+            let royalty = (price * royaltyRate) / 100;
+            document.getElementById('royalty-result').innerHTML = `Estimated royalty for ${country}: $${royalty.toFixed(2)}`;
         }
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
         }
-
-        function copyEmbedCode() {
-            let embedCode = '<iframe src="https://yourgithubusername.github.io/repository-name/index.html" width="600" height="400"></iframe>';
-            document.getElementById('embed-code').value = embedCode;
-            navigator.clipboard.writeText(embedCode);
-            alert('Embed code copied to clipboard!');
-        }
     </script>
+
+    <footer>
+        <p>Embed this tool on your website:</p>
+        <textarea id="embed-code" rows="4" cols="50" readonly>
+<iframe src="https://KRUMBLETOP.github.io/Book-Sales-Profit-Analyzer" width="800" height="600"></iframe>
+        </textarea>
+    </footer>
 </body>
 </html>
+
