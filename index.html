@@ -6,12 +6,106 @@
     <title>Amazon Book Sales Profit Analyzer</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        section {
+            padding: 20px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label, input, select, button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #embed-code textarea {
+            width: 100%;
+            height: 100px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Image styling */
+        #image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            section {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
+
     <header>
         <h1>Amazon Book Sales Profit Analyzer</h1>
         <p>Analyze your book sales, royalty earnings, and much more. Optimize your book pricing and promotions with ease!</p>
     </header>
+
+    <!-- Image Container -->
+    <div id="image-container">
+        <img src="https://github.com/KRUMBLETOP/Book-Sales-Profit-Analyzer/blob/main/Book%20Profit%20Calc%20Toolz.png?raw=true" alt="Book Analyzer Logo">
+    </div>
 
     <!-- Price Comparison Tool -->
     <section id="price-comparison">
@@ -40,101 +134,6 @@
         <div id="price-optimization-results"></div>
     </section>
 
-    <!-- Amazon Ads ROI Estimator -->
-    <section id="ads-roi">
-        <h2>Amazon Ads ROI Estimator</h2>
-        <label for="ad-spend">Ad Spend ($):</label>
-        <input type="number" id="ad-spend" placeholder="Enter your ad spend">
-        <label for="ad-sales">Sales Generated ($):</label>
-        <input type="number" id="ad-sales" placeholder="Enter your ad sales">
-        <button onclick="calculateROI()">Calculate ROI</button>
-        <div id="roi-results"></div>
-    </section>
-
-    <!-- Best Time to Launch Tool -->
-    <section id="launch-time">
-        <h2>Best Time to Launch Tool</h2>
-        <label for="category">Select Book Category:</label>
-        <select id="category">
-            <option value="fiction">Fiction</option>
-            <option value="non-fiction">Non-fiction</option>
-            <option value="self-help">Self-Help</option>
-        </select>
-        <button onclick="suggestLaunchTime()">Get Launch Time</button>
-        <div id="launch-time-results"></div>
-    </section>
-
-    <!-- Author Earnings Dashboard -->
-    <section id="earnings-dashboard">
-        <h2>Author Earnings Dashboard</h2>
-        <label for="price">Book Price ($):</label>
-        <input type="number" id="price" placeholder="Enter your book's price">
-        <label for="units-sold">Units Sold:</label>
-        <input type="number" id="units-sold" placeholder="Enter units sold">
-        <button onclick="calculateEarnings()">Calculate Earnings</button>
-        <div id="earnings-results"></div>
-    </section>
-
-    <!-- Amazon Bestseller Rank (BSR) Tracker -->
-    <section id="bsr-tracker">
-        <h2>Amazon Bestseller Rank (BSR) Tracker</h2>
-        <label for="asin-bsr">Enter ASIN for BSR Tracking:</label>
-        <input type="text" id="asin-bsr" placeholder="Enter ASIN for Book">
-        <button onclick="trackBSR()">Track BSR</button>
-        <div id="bsr-tracker-results"></div>
-    </section>
-
-    <!-- KDP Royalties Forecast -->
-    <section id="kdp-royalties">
-        <h2>KDP Royalties Forecast</h2>
-        <label for="kdp-price">Book Price ($):</label>
-        <input type="number" id="kdp-price" placeholder="Enter book price">
-        <label for="kdp-royalty-rate">Royalty Rate (%):</label>
-        <input type="number" id="kdp-royalty-rate" placeholder="Enter royalty rate">
-        <button onclick="forecastRoyalties()">Forecast Royalties</button>
-        <div id="royalties-results"></div>
-    </section>
-
-    <!-- International Sales Forecast -->
-    <section id="international-sales">
-        <h2>International Sales Forecast</h2>
-        <label for="intl-price">Book Price ($):</label>
-        <input type="number" id="intl-price" placeholder="Enter book price">
-        <label for="region">Select Region:</label>
-        <select id="region">
-            <option value="uk">UK</option>
-            <option value="canada">Canada</option>
-            <option value="germany">Germany</option>
-            <option value="france">France</option>
-        </select>
-        <button onclick="forecastIntlSales()">Forecast International Sales</button>
-        <div id="intl-sales-results"></div>
-    </section>
-
-    <!-- Bundled Sales Estimate -->
-    <section id="bundled-sales">
-        <h2>Bundled Sales Estimate</h2>
-        <label for="book1-price">Book 1 Price ($):</label>
-        <input type="number" id="book1-price" placeholder="Enter Book 1 price">
-        <label for="book2-price">Book 2 Price ($):</label>
-        <input type="number" id="book2-price" placeholder="Enter Book 2 price">
-        <button onclick="estimateBundleSales()">Estimate Bundle Sales</button>
-        <div id="bundle-sales-results"></div>
-    </section>
-
-    <!-- Book Promotion Finder -->
-    <section id="book-promotion">
-        <h2>Book Promotion Finder</h2>
-        <label for="genre">Select Genre:</label>
-        <select id="genre">
-            <option value="fiction">Fiction</option>
-            <option value="non-fiction">Non-fiction</option>
-            <option value="self-help">Self-Help</option>
-        </select>
-        <button onclick="findPromotions()">Find Promotions</button>
-        <div id="promotion-results"></div>
-    </section>
-
     <!-- Embed Code Section -->
     <section id="embed-code">
         <h2>Embed this Tool on Your Website</h2>
@@ -150,3 +149,121 @@
     </footer>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------
+
+
+
+ Book Sales Profit Analyzer Tool – Maximize Your Amazon Book Earnings!
+
+Are you an author, publisher, or book reseller looking to optimize your Amazon book sales and profits? The Book Sales Profit Analyzer Tool is an all-in-one solution designed to help you analyze, compare, and maximize book earnings on Amazon.
+
+Whether you're self-publishing, selling used books, or running an Amazon FBA business, this tool provides valuable insights and automation to boost your success!
+ Key Features & Benefits
+ Amazon Sales Rank & Price Comparison
+
+    Instantly compare the Best Seller Rank (BSR) of two or more books to see which is selling better.
+
+    Check real-time pricing across different editions (Kindle, Paperback, Hardcover).
+
+    Evaluate if competitor books are outperforming yours.
+
+  Royalty & Profit Calculator
+
+    Accurately calculate your Amazon royalties for Kindle, paperback, and hardcover books.
+
+    Factor in printing costs, Amazon fees, and advertising expenses to determine net profit.
+
+    Supports multiple currencies and Amazon marketplaces (USA, UK, Canada, Germany, etc.).
+
+  Estimated Monthly Sales & Earnings
+
+    Get an approximate estimate of monthly sales based on Amazon's Best Seller Rank.
+
+    Uses a special formula:
+    Estimated Sales = 100,000 / BSR^0.7
+
+    Helps you forecast earnings and decide if a book is worth investing in!
+
+  Global Pricing & Affiliate Links
+
+    Automatically adjusts for regional Amazon marketplaces (Amazon.com, Amazon.co.uk, Amazon.ca, etc.).
+
+    Supports Amazon OneLink, ensuring that affiliate earnings are captured across different countries.
+
+    Makes it easy to monetize book promotions with Amazon Associates links.
+
+ Price History & Trends
+
+    Tracks book price changes over time to help you decide when to buy or sell.
+
+    Identifies pricing trends to adjust your pricing strategy for higher profits.
+
+  Competitor Analysis Tool
+
+    Enter a competitor’s ASIN to fetch valuable data:
+     Best Seller Rank
+     Price Changes
+     Number of Reviews & Ratings
+     Estimated Monthly Sales
+
+    Helps self-publishers and resellers determine market demand!
+
+  Keyword Research for Book Titles & Categories
+
+    Find high-ranking keywords in your book’s genre.
+
+    Helps you optimize your book title & description for more visibility on Amazon.
+
+  Amazon Advertising ROI Calculator
+
+    Calculate the return on investment (ROI) for Amazon ads.
+
+    Determine whether your ad spend is profitable based on sales conversions.
+
+  ISBN & ASIN Lookup Tool
+
+    Enter an ISBN or ASIN to get full book details (title, author, publisher, and pricing).
+
+    Saves time when researching multiple books.
+
+  Book Promotion Calendar & Discount Alerts
+
+    Plan book promotions around key sales events like Black Friday, Cyber Monday, and Prime Day.
+
+    Get alerts when Amazon discounts a book you’re selling.
+
+  Easy Website Integration
+
+    Website owners can embed this tool directly on their site using an iframe embed code.
+
+    Adds value to book-related websites, author blogs, and Amazon FBA resources.
+
+  Book Cover Preview & Review Analyzer
+
+    Displays a book cover when users enter an ISBN or ASIN.
+
+    Breaks down Amazon reviews into key themes (positive & negative feedback).
+
+ Why Use This Tool?
+
+ Saves time – No more manual calculations or searching for book data.
+ Boosts profits – Get real-time insights to price books for maximum earnings.
+ Improves decision-making – Know which books to sell, which keywords to use, and how to optimize your book listings.
+ Works for multiple users – Ideal for self-publishers, book resellers, bloggers, and affiliate marketers.
+ Start Analyzing Your Book Sales & Profits Today!
+
+Use the Book Sales Profit Analyzer Tool to make smarter book-selling decisions and maximize your Amazon earnings!
+
+ Want to add this tool to your website? Simply copy and paste the provided embed code and integrate it with your blog or eCommerce store!
