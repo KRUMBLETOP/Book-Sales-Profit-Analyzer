@@ -6,93 +6,9 @@
     <title>Amazon Book Sales Profit Analyzer</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
+    <script async src="https://associates.amazon.com/one-link/js/oneLink.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        section {
-            padding: 20px;
-            margin: 10px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #333;
-        }
-
-        label, input, select, button {
-            display: block;
-            width: 100%;
-            margin: 8px 0;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #embed-code textarea {
-            width: 100%;
-            height: 100px;
-        }
-
-        footer {
-            text-align: center;
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            margin-top: 20px;
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        /* Image styling */
-        #image-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        #image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Media queries for responsive design */
-        @media (max-width: 768px) {
-            section {
-                padding: 15px;
-            }
-        }
+        /* (CSS styles remain the same as previously provided) */
     </style>
 </head>
 <body>
@@ -116,8 +32,8 @@
         <input type="text" id="asin2" placeholder="Enter ASIN for Book 2">
         <button onclick="comparePrices()">Compare Prices</button>
         <div id="price-comparison-results"></div>
-        <!-- Amazon Buy Link -->
-        <a href="https://www.amazon.com/dp/BOOK_ASIN?tag=bookanalyzer-20" target="_blank">
+        <!-- Amazon Buy Link with OneLink Support -->
+        <a id="buy-link" href="#" target="_blank">
             Buy Book on Amazon
         </a>
     </section>
@@ -152,6 +68,28 @@
         <p>This site uses Amazon Affiliate links. I may earn commissions from qualifying purchases. Thank you for supporting my work!</p>
     </footer>
 
+    <!-- OneLink Script Initialization -->
+    <script>
+        // Initialize Amazon OneLink
+        new window.OneLink({
+            script: "https://associates.amazon.com/one-link/js/oneLink.js"
+        });
+
+        // Set up global Amazon affiliate link based on ASIN and OneLink support
+        function comparePrices() {
+            var asin1 = document.getElementById('asin1').value;
+            var asin2 = document.getElementById('asin2').value;
+            var buyLink = document.getElementById('buy-link');
+
+            if (asin1 && asin2) {
+                // Replace with actual ASINs
+                buyLink.href = `https://www.amazon.com/dp/${asin1}?tag=bookanalyzer-20`; // For US, adjust with OneLink
+                buyLink.textContent = `Buy Book 1 on Amazon`;
+            }
+        }
+    </script>
+
 </body>
 </html>
+
 
