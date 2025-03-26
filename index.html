@@ -10,11 +10,15 @@
         label, input, select { display: block; width: 100%; margin-bottom: 10px; }
         button { padding: 10px; background: blue; color: white; border: none; cursor: pointer; }
         .dark-mode { background-color: #333; color: #fff; }
+        .affiliate-disclaimer { font-size: 14px; color: #555; margin-top: 20px; }
+        .embed-section { margin-top: 20px; }
+        .embed-section textarea { width: 100%; height: 50px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Book Sales Profit Analyzer</h1>
+        
         <label for="book-price">Book Price ($)</label>
         <input type="number" id="book-price" placeholder="Enter book price">
         
@@ -31,23 +35,59 @@
         
         <p id="affiliate-link"></p>
         
+        <label for="country">Select Country</label>
+        <select id="country">
+            <option value="US">USA</option>
+            <option value="UK">UK</option>
+            <option value="CA">Canada</option>
+            <option value="DE">Germany</option>
+            <option value="FR">France</option>
+        </select>
+
+        <label for="royalty-rate">Enter Royalty Rate (%)</label>
+        <input type="number" id="royalty-rate" placeholder="Enter royalty rate" value="70">
+        
+        <button onclick="calculateRoyalty()">Calculate Royalty</button>
+        <p id="royalty-output"></p>
+
         <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
         
-        <h2>Embed This Tool</h2>
-        <p>Copy the code below to add this tool to your website:</p>
-        <textarea id="embed-code" readonly style="width: 100%; height: 50px;"></textarea>
-        <button onclick="copyEmbedCode()">Copy Code</button>
+        <div class="embed-section">
+            <h2>Embed This Tool</h2>
+            <p>Copy the code below to add this tool to your website:</p>
+            <textarea id="embed-code" readonly></textarea>
+            <button onclick="copyEmbedCode()">Copy Code</button>
+        </div>
+        
+        <p class="affiliate-disclaimer">
+            Disclaimer: As an Amazon Associate, I earn from qualifying purchases through the links provided on this tool.
+        </p>
     </div>
 
     <script>
         function generateAffiliateLink() {
             let asin = document.getElementById('asin').value;
-            let affiliateID = 'bookanalyzer-20';  // Replace with your ID
+            let affiliateID = 'bookanalyzer-20';  // Replace with your Amazon affiliate ID
             if (asin) {
                 document.getElementById('affiliate-link').innerHTML = `Affiliate Link: <a href="https://www.amazon.com/dp/${asin}/?tag=${affiliateID}" target="_blank">View on Amazon</a>`;
             } else {
                 alert('Please enter an ASIN');
             }
+        }
+
+        function calculateRoyalty() {
+            let bookPrice = document.getElementById('book-price').value;
+            let royaltyRate = document.getElementById('royalty-rate').value;
+            let country = document.getElementById('country').value;
+            
+            if (!bookPrice || !royaltyRate) {
+                alert('Please enter both book price and royalty rate.');
+                return;
+            }
+
+            let royaltyAmount = (bookPrice * royaltyRate) / 100;
+            let outputText = `Royalty for ${country}: $${royaltyAmount.toFixed(2)}`;
+            document.getElementById('royalty-output').innerText = outputText;
         }
 
         function toggleDarkMode() {
