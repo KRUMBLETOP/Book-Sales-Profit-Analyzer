@@ -74,7 +74,6 @@
             margin: 0;
         }
 
-        /* Image styling */
         #image-container {
             text-align: center;
             margin: 20px 0;
@@ -87,7 +86,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Media queries for responsive design */
         @media (max-width: 768px) {
             section {
                 padding: 15px;
@@ -102,7 +100,6 @@
         <p>Analyze your book sales, royalty earnings, and much more. Optimize your book pricing and promotions with ease!</p>
     </header>
 
-    <!-- Image Container -->
     <div id="image-container">
         <img src="https://github.com/KRUMBLETOP/Book-Sales-Profit-Analyzer/blob/main/Book%20Profit%20Calc%20Toolz.png?raw=true" alt="Book Analyzer Logo">
     </div>
@@ -118,70 +115,67 @@
         <div id="price-comparison-results"></div>
     </section>
 
-    <!-- Royalty & Profit Calculator Tool -->
-    <section id="royalty-profit">
-        <h2>Royalty & Profit Calculator</h2>
-        <label for="price">Enter Book Price:</label>
-        <input type="number" id="price" placeholder="Enter book price">
-        <label for="cost">Enter Printing Cost (if any):</label>
-        <input type="number" id="cost" placeholder="Enter printing cost">
-        <label for="fees">Enter Amazon Fees:</label>
-        <input type="number" id="fees" placeholder="Enter Amazon Fees">
-        <button onclick="calculateRoyaltyProfit()">Calculate Profit</button>
-        <div id="royalty-profit-results"></div>
-    </section>
-
-    <!-- Competitor Analysis Tool -->
-    <section id="competitor-analysis">
-        <h2>Competitor Analysis Tool</h2>
-        <label for="competitor-asin">Enter Competitor's ASIN:</label>
-        <input type="text" id="competitor-asin" placeholder="Enter competitor's ASIN">
-        <button onclick="fetchCompetitorData()">Fetch Data</button>
-        <div id="competitor-data-results"></div>
+    <!-- Price Optimization Tool -->
+    <section id="price-optimization">
+        <h2>Price Optimization Tool</h2>
+        <label for="book-category">Select Book Category:</label>
+        <select id="book-category">
+            <option value="fiction">Fiction</option>
+            <option value="non-fiction">Non-fiction</option>
+            <option value="self-help">Self-Help</option>
+            <option value="romance">Romance</option>
+        </select>
+        <label for="current-price">Current Price:</label>
+        <input type="number" id="current-price" placeholder="Enter current price">
+        <button onclick="optimizePrice()">Optimize Price</button>
+        <div id="price-optimization-results"></div>
     </section>
 
     <!-- Embed Code Section -->
     <section id="embed-code">
         <h2>Embed this Tool on Your Website</h2>
         <textarea rows="5" cols="50" id="embed-code-box">
-<iframe src="https://your-github-username.github.io/repository-name" width="800" height="600"></iframe>
+<iframe src="https://example.com/book-analyzer" width="800" height="600"></iframe>
         </textarea>
         <button onclick="copyEmbedCode()">Copy Embed Code</button>
     </section>
 
-    <!-- Footer with Affiliate Disclaimer -->
-    <footer>
-        <p>This site uses Amazon Affiliate links. I may earn commissions from qualifying purchases. Thank you for supporting my work!</p>
-    </footer>
+    <!-- Amazon Affiliate Links (OneLink Integration) -->
+    <script type="text/javascript">
+        (function() {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://associates.amazon.com/one-link.js'; // OneLink script
+            script.async = true;
+            script.onload = function() {
+                // Initialize OneLink
+                AmazonOneLink.init();
+            };
+            document.head.appendChild(script);
+        })();
+    </script>
 
     <script>
+        // Function to compare prices and show the Amazon affiliate link
         function comparePrices() {
-            let asin1 = document.getElementById('asin1').value;
-            let asin2 = document.getElementById('asin2').value;
-            // Add logic to fetch and compare prices using Amazon API or other methods.
-            document.getElementById('price-comparison-results').innerText = `Comparing prices for ASINs: ${asin1} and ${asin2}`;
-        }
+            var asin1 = document.getElementById("asin1").value;
+            var asin2 = document.getElementById("asin2").value;
 
-        function calculateRoyaltyProfit() {
-            let price = parseFloat(document.getElementById('price').value);
-            let cost = parseFloat(document.getElementById('cost').value);
-            let fees = parseFloat(document.getElementById('fees').value);
-            let profit = price - cost - fees;
-            document.getElementById('royalty-profit-results').innerText = `Estimated Profit: $${profit.toFixed(2)}`;
-        }
+            // Generate Amazon affiliate URLs
+            var affiliateLink1 = `https://www.amazon.com/dp/${asin1}?tag=bookanalyzer-20`;
+            var affiliateLink2 = `https://www.amazon.com/dp/${asin2}?tag=bookanalyzer-20`;
 
-        function fetchCompetitorData() {
-            let competitorAsin = document.getElementById('competitor-asin').value;
-            // Fetch competitor data logic (BSR, reviews, price changes, etc.)
-            document.getElementById('competitor-data-results').innerText = `Fetching data for ASIN: ${competitorAsin}`;
-        }
-
-        function copyEmbedCode() {
-            let embedCodeBox = document.getElementById('embed-code-box');
-            embedCodeBox.select();
-            document.execCommand('copy');
+            // Display results
+            document.getElementById("price-comparison-results").innerHTML = `
+                <p><a href="${affiliateLink1}" target="_blank">Book 1 (ASIN: ${asin1}) - View on Amazon</a></p>
+                <p><a href="${affiliateLink2}" target="_blank">Book 2 (ASIN: ${asin2}) - View on Amazon</a></p>
+            `;
         }
     </script>
 
+    <!-- Affiliate Disclaimer -->
+    <footer>
+        <p>This site uses Amazon Affiliate links. I may earn commissions from qualifying purchases. Thank you for supporting my work!</p>
+    </footer>
 </body>
 </html>
